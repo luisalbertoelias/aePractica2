@@ -102,7 +102,7 @@ public class EJBOperacion {
         return result;
     }
     
-    public String guardarUsuario(String unombre, int upin, Date fechaingreso, boolean admin){
+    public String guardarUsuario(String unombre, int pin, Date fechaingreso, boolean admin){
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         String result = "";
@@ -111,7 +111,7 @@ public class EJBOperacion {
         
         try {
             usuario.setUnombre(unombre);
-            usuario.setPin(upin);
+            usuario.setPin(pin);
             usuario.setFechaingreso(fechaingreso);
             usuario.setAdmin(admin);
              
@@ -130,7 +130,7 @@ public class EJBOperacion {
         } catch (LockTimeoutException e) {
             m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
         } catch (PersistenceException e) {
-            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "Error persist", e.toString());
         } catch (EJBException e) {
             m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
         }

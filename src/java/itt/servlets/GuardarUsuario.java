@@ -12,6 +12,7 @@ import itt.utils.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.ejb.EJB;
@@ -30,9 +31,9 @@ public class GuardarUsuario extends HttpServlet {
 
     @EJB
     private EJBOperacion ejb;
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {  
+            throws ServletException, IOException {
     }
 
     @Override
@@ -44,20 +45,25 @@ public class GuardarUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("Cache-Control","no-store");
+        response.setHeader("Cache-Control", "no-store");
         PrintWriter p = response.getWriter();
-        
-        String unombre = request.getParameter("unombre") == null ? "" : request.getParameter("unombre");
-        int upin = Integer.parseInt(request.getParameter("upin"));
-        
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
-        //Date fechaingreso = dateFormat.parse(request.getParameter("fechaingreso"));
-        Date fechaingreso = dateFormat.parse(request.getParameter("fechaingreso"));
-        
-        boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
-        
-        p.print(ejb.guardarUsuario(unombre, upin, fechaingreso, admin));
+
+        try {
+            String unombre = request.getParameter("unombre");
+            int pin = Integer.parseInt(request.getParameter("pin"));
+
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
+            //Date fechaingreso = dateFormat.parse(request.getParameter("fechaingreso"));
+            Date fechaingreso = dateFormat.parse(request.getParameter("fechaingreso"));
+
+            boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
+
+            p.print(ejb.guardarUsuario(unombre, pin, fechaingreso, admin));
+        } catch (ParseException e) {
+           p.print("Está mal chavo");
+        }
 
     }
 
