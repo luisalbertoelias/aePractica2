@@ -78,7 +78,7 @@ public class EJBOperacion {
         String result = "";
         Message m = new Message();  
         List<Usuario> listUsuario = null;
-        q = em.createNamedQuery("Usuario.findByPin"); //Para verificar si se encuentra en la bdd
+        q = em.createNamedQuery("Usuario.findAll"); //Para verificar si se encuentra en la bdd
         
         try {
             listUsuario = q.getResultList();
@@ -151,6 +151,7 @@ public class EJBOperacion {
         try {
             
             usuario =(Usuario) q.getSingleResult();
+            
             usuario.setUid(uid);
             usuario.setUnombre(unombre);
             
