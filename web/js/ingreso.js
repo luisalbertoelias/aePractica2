@@ -67,7 +67,10 @@ function generarTablaNormal() {
                 data: "unombre"
             },
             {
-                data: "fechaingreso"
+                data: function(json){
+                    var fechanew = fecha(json["fechaingreso"]);
+                    return fecha;
+                }
             }
         ]
     });
@@ -87,10 +90,16 @@ function generarTablaAdmin() {
                 data: "unombre"
             },
             {
-                data: "fechaingreso"
+                data: function(json){
+                    var fechanew = fecha(json["fechaingreso"]);
+                    return fechanew;
+                }
             },
             {
-                data: "fechaactualizacion"
+                data: function(json){
+                    var fechanew = fecha(json["fechaactualizacion"]);
+                    return fechanew;
+                }
             },
             {
                 data: function (values) {
@@ -206,3 +215,74 @@ function actualizarUsuario(){
         });
     });
 };
+
+
+function salario(valor) {
+    var valor;
+    if (valor.toString().indexOf(".") != -1) {
+        var separacion = valor.toString().split(".");
+        var entero = separacion[0];
+        var decimales = separacion[1];
+        valor = "$" + entero + ".";
+        if (decimales.length === 1) {
+            valor += decimales + "0";
+        } else if (decimales.length > 2) {
+            valor += decimales.toString().substring(0, 2);
+        } else if (decimales.length === 2) {
+            valor += decimales;
+        }
+    } else {
+        valor = "$" + valor + ".00";
+    }
+    return valor;
+}
+;
+
+
+function fecha(fecha) {
+    var split = fecha.split(" ");
+    var fechaFinal = split[1].toString().replace(",", "") + "/";
+    switch (split[0]) {
+        case "Ene":
+            fechaFinal += "Enero";
+            break;
+        case "Feb":
+            fechaFinal += "Febrero";
+            break;
+        case "Mar":
+            fechaFinal += "Marzo";
+            break;
+        case "Abr":
+            fechaFinal += "Abri";
+            break;
+        case "May":
+            fechaFinal += "Mayo";
+            break;
+        case "Jun":
+            fechaFinal += "Junio";
+            break;
+        case "Jul":
+            fechaFinal += "Julio";
+            break;
+        case "Ago":
+            fechaFinal += "Agosto";
+            break;
+        case "Sep":
+            fechaFinal += "Septiembre";
+            break;
+        case "Oct":
+            fechaFinal += "Octubre";
+            break;
+        case "Nov":
+            fechaFinal += "Noviembre";
+            break;
+        case "Dic":
+            fechaFinal += "Diciembre";
+            break;
+
+    }
+
+    fechaFinal += "/" + split[2];
+    return fechaFinal;
+}
+;
