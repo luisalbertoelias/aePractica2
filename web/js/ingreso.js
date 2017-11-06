@@ -137,7 +137,7 @@ function cambioPermiso(id, vPermiso) {
 function paginaError() {
     var titulo = document.getElementById("lbTitle");
     var t = document.createElement("h1");
-    t.createTextNode("ERROR");
+    t.innerHTML = "ERROR!!!";
     titulo.appendChild(t);
 
     var botones = document.getElementById("btnBotones");
