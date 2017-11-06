@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Elías
+ * @author rh1n0
  */
 @Entity
 @Table(name = "usuario")
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuario.findByPin", query = "SELECT u FROM Usuario u WHERE u.pin = :pin")
     , @NamedQuery(name = "Usuario.findByFechaingreso", query = "SELECT u FROM Usuario u WHERE u.fechaingreso = :fechaingreso")
     , @NamedQuery(name = "Usuario.findByAdmin", query = "SELECT u FROM Usuario u WHERE u.admin = :admin")
-    , @NamedQuery(name = "Usuario.findByFechaactulizacion", query = "SELECT u FROM Usuario u WHERE u.fechaactulizacion = :fechaactulizacion")
+    , @NamedQuery(name = "Usuario.findByFechaactualizacion", query = "SELECT u FROM Usuario u WHERE u.fechaactualizacion = :fechaactualizacion")
     , @NamedQuery(name = "Usuario.findByPermiso", query = "SELECT u FROM Usuario u WHERE u.permiso = :permiso")})
 public class Usuario implements Serializable {
 
@@ -55,9 +55,9 @@ public class Usuario implements Serializable {
     private Date fechaingreso;
     @Column(name = "admin")
     private Boolean admin;
-    @Column(name = "fechaactulizacion")
+    @Column(name = "fechaactualizacion")
     @Temporal(TemporalType.DATE)
-    private Date fechaactulizacion;
+    private Date fechaactualizacion;
     @Column(name = "permiso")
     private Boolean permiso;
 
@@ -108,12 +108,12 @@ public class Usuario implements Serializable {
         this.admin = admin;
     }
 
-    public Date getFechaactulizacion() {
-        return fechaactulizacion;
+    public Date getFechaactualizacion() {
+        return fechaactualizacion;
     }
 
-    public void setFechaactulizacion(Date fechaactulizacion) {
-        this.fechaactulizacion = fechaactulizacion;
+    public void setFechaactualizacion(Date fechaactualizacion) {
+        this.fechaactualizacion = fechaactualizacion;
     }
 
     public Boolean getPermiso() {

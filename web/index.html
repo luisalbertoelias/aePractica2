@@ -9,8 +9,31 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script type="text/javascript" src="js/plugins/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        
+        
     </head>
     <body>
-        <div>TODO write content</div>
+        <div class="container">
+            
+            <form id="frmPrueba" method="POST" onSubmit="return envio()">
+                <div class="form-group">
+                    <div class="input-group"> 
+                        <span class="input-group-addon">
+                            PIN
+                        </span>
+                        <input type="number" class="form-control" id="txtPin" name="txtPin" placeholder="Ibgresa tu ping">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default" onclick="abrirRegistro()">Registrar</button>
+                <button type="submit" class="btn btn-danger">Enviar</button>
+            </form>
+            
+        </div>
     </body>
 </html>

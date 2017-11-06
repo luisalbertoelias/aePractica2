@@ -102,7 +102,7 @@ public class EJBOperacion {
         return result;
     }
     
-    public String guardarUsuario(String unombre, int pin, Date fechaingreso, boolean admin){
+    public String guardarUsuario(String unombre, int pin, boolean admin){
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         String result = "";
@@ -112,8 +112,13 @@ public class EJBOperacion {
         try {
             usuario.setUnombre(unombre);
             usuario.setPin(pin);
-            usuario.setFechaingreso(fechaingreso);
+            
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            usuario.setFechaingreso(dateFormat.parse(dateFormat.format(date)));
+            usuario.setFechaactualizacion(dateFormat.parse(dateFormat.format(date)));
             usuario.setAdmin(admin);
+            usuario.setPermiso(false);
              
             em.persist(usuario);
             em.flush();
@@ -132,6 +137,8 @@ public class EJBOperacion {
         } catch (PersistenceException e) {
             m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "Error persist", e.toString());
         } catch (EJBException e) {
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+        }catch(ParseException e){
             m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
         }
         result = gson.toJson(m);
@@ -155,11 +162,10 @@ public class EJBOperacion {
             usuario.setUid(uid);
             usuario.setUnombre(unombre);
             
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date = new Date();
-            dateFormat.format(date);
             
-            usuario.setFechaactulizacion(dateFormat.parse(dateFormat.format(date)));
+            usuario.setFechaactualizacion(dateFormat.parse(dateFormat.format(date)));
             
             em.merge(usuario);
             em.flush();
@@ -225,6 +231,47 @@ public class EJBOperacion {
         } catch (EJBException e) {
             m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
         }
+        result = gson.toJson(m);
+        return result;
+    }
+    
+    
+    public String cambioPermiso(int uid, boolean permiso){
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        String result = "";
+        Message m = new Message();  
+        Usuario usuario = null;
+        Query q;
+        
+        q = em.createNamedQuery("Usuario.findByUid").setParameter("uid", uid);
+        
+        try {
+            
+            usuario =(Usuario) q.getSingleResult();
+            
+            usuario.setPermiso(!permiso);
+            
+            em.merge(usuario);
+            em.flush();
+            
+            m = m.getMessage(m, HttpServletResponse.SC_OK, "La consulta se ejecuto correctamente", gson.toJson(usuario));
+        } catch (IllegalStateException e) {
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+        } catch (QueryTimeoutException e) {
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+        } catch (TransactionRequiredException e) {
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+        } catch (PessimisticLockException e) {
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+        } catch (LockTimeoutException e) {
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+        } catch (PersistenceException e) {
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+        } catch (EJBException e) {
+            m = m.getMessage(m, HttpServletResponse.SC_BAD_REQUEST, "No se encontro resultado", e.toString());
+        } 
+        
         result = gson.toJson(m);
         return result;
     }

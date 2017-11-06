@@ -50,20 +50,15 @@ public class GuardarUsuario extends HttpServlet {
         response.setHeader("Cache-Control", "no-store");
         PrintWriter p = response.getWriter();
 
-        try {
-            String unombre = request.getParameter("unombre");
-            int pin = Integer.parseInt(request.getParameter("pin"));
+        String unombre = request.getParameter("unombre");
+        int pin = Integer.parseInt(request.getParameter("pin"));
 
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
-            //Date fechaingreso = dateFormat.parse(request.getParameter("fechaingreso"));
-            Date fechaingreso = dateFormat.parse(request.getParameter("fechaingreso"));
+//            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
+        //Date fechaingreso = dateFormat.parse(request.getParameter("fechaingreso"));
+//            Date fechaingreso = dateFormat.parse(request.getParameter("fechaingreso"));
+        boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
 
-            boolean admin = Boolean.parseBoolean(request.getParameter("admin"));
-
-            p.print(ejb.guardarUsuario(unombre, pin, fechaingreso, admin));
-        } catch (ParseException e) {
-           p.print("Está mal chavo");
-        }
+        p.print(ejb.guardarUsuario(unombre, pin, admin));
 
     }
 

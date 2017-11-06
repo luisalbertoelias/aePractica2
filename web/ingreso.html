@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script type="text/javascript" src="js/plugins/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery.growl.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/ingreso.js"></script>
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" href="css/jquery.growl.css"/>
+        
+    </head>
+    <body>
+        <div class="container">
+            
+            <div id="actualizarModal" class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" data-dissmis="modal" type="button">&times;</button>
+                            <h3>Actualización</h3>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <input type="hidden" id="actualizarId"/>
+                            <div class="form-group">
+                                <div class="input-group"> 
+                                    <span class="input-group-addon">
+                                        Nombre
+                                    </span>
+                                    <input type="text" class="form-control" id="actualizarNombre" name="actualizarNombre" placeholder="Ingresa en nuevo nombre">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" onclick="cerrarModal()">Cerrar</button>
+                            <button type="button" class="btn btn-danger" onclick="actualizarUsuario()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="row">
+                <div id="lbTitle" align="center">
+                    
+                </div>
+            </div>
+            
+            <div class="row">
+                <div id="btnBotones" align="center">
+                    
+                </div>
+            </div>
+            
+            <div class="row">
+                <input type="hidden" id="idUsuario"/>
+                <div id="tablaAdmin">
+                    <table id="tAdmin" class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fecha Ingreso</th>
+                                <th>Fecha Actualización</th>
+                                <th>Permiso</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                
+                <div id="tablaNormal">
+                    <table id="tNormal" class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fecha Ingreso</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
